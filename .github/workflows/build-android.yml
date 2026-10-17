@@ -16,14 +16,25 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
       - name: Install Android SDK
         run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
       - name: Run core checks
         run: sh tools/check-core.sh
       - name: Build APK
         run: sh gradlew --no-daemon :app:assembleDebug :app:verifyCore
+      - name: Verify and prepare APK
+        run: |
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose app/build/outputs/apk/debug/app-debug.apk
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging app/build/outputs/apk/debug/app-debug.apk
+          mkdir -p dist
+          cp app/build/outputs/apk/debug/app-debug.apk dist/JuYanAI-1.0.0.apk
+          cd dist
+          sha256sum JuYanAI-1.0.0.apk > JuYanAI-1.0.0.apk.sha256
       - uses: actions/upload-artifact@v4
         with:
           name: JuYanAI-personal-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: dist/*
           if-no-files-found: error
