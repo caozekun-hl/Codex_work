@@ -2,7 +2,15 @@
 
 原生 Android 多模型 AI 客户端，直接连接自己配置的 GPT、DeepSeek、GLM 等 OpenAI Chat Completions 兼容接口。仅个人使用，无需账号或自建服务器。
 
-**交付状态：源码已实现，60 项核心离线检查通过。当前环境缺少 Android SDK，构建工具的联网下载未完成，因此尚未生成 APK，也未进行安卓真机、Keystore 或真实服务商联调。源码压缩包不能直接安装。**
+**交付状态：APK 1.0.0 已在 GitHub Actions 构建成功，Android SDK 编译、资源打包、APK v2 签名验证和 60 项核心检查均通过。支持 Android 8.0 及以上。尚未进行真机、Keystore 或真实服务商联调。**
+
+## 下载安装包
+
+[下载 JuYanAI-personal-debug 安装包产物](https://github.com/caozekun-hl/Codex_work/actions/runs/38993673561/artifacts/12086286686)（约 50 KB，需登录 GitHub）。
+
+下载后解压 ZIP，点击其中的 `JuYanAI-1.0.0.apk` 安装。压缩包还包含 SHA-256 校验文件。首次安装时允许文件管理器安装此应用。源码 ZIP 用于开发，不能直接安装。
+
+[查看成功构建记录](https://github.com/caozekun-hl/Codex_work/actions/runs/38993673561)。该构建产物计划保留到 2027-01-15，过期后需重新构建。
 
 ## 功能
 
@@ -38,7 +46,7 @@ Windows：`gradlew.bat :app:assembleDebug :app:verifyCore`。
 
 工程含 `.github/workflows/build-android.yml`。将解压后的文件作为 GitHub 仓库内容提交后，打开 **Actions → Build Android APK → Run workflow**。成功后下载 `JuYanAI-personal-debug` 产物，解压得到 APK。
 
-该构建无需个人 API Key。不要把密钥提交到仓库。本次会话没有上传源码或执行远程构建；自动构建配置尚未在远程验证。
+该构建无需个人 API Key。不要把密钥提交到仓库。当前工程已在 `apk-build/juyan-personal-20261017` 分支完成云端构建，主分支保留原状。后续向 `apk-build/` 开头的分支推送也会触发构建。
 
 ## 手机上使用
 
@@ -95,7 +103,7 @@ sh tools/check-core.sh
 
 60 项检查覆盖地址验证、上下文筛选、SSE 中文碎片与多行事件、连接中断、JSON 回退、认证错误、重定向保护、导入校验、无密钥导出、数据恢复与取消。传输测试使用内存模拟 HTTPS，不使用真实密钥。
 
-已进行全部 6 个生产 Java 文件的语法解析与 XML 格式检查。安卓界面尚未在 SDK 下完成类型检查和打包。仍需真机验证键盘适配、文件选择器、Keystore 加密、后台中断及各服务商真实接口。
+已完成全部生产 Java 文件的 Android SDK 编译、XML 资源链接、DEX 打包和 APK 签名验证。仍需真机验证键盘适配、文件选择器、Keystore 加密、后台中断及各服务商真实接口。
 
 ## 代码
 

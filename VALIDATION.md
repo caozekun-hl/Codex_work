@@ -1,6 +1,6 @@
 # 本次验证记录
 
-日期：2026-10-16
+日期：2026-10-17
 
 ## 已执行
 
@@ -12,20 +12,22 @@
 - Gradle Wrapper 与测试专用 JSON jar：ZIP 完整性通过。
 - 官方 Gradle Wrapper Git blob SHA-1 校验：`a4b76b9530d66f5e68d973ea569d8e19de379189`，匹配 Gradle v8.10.2。
 
-## 构建阻塞
+## 云端构建成功
 
-尝试通过官方 Gradle Wrapper 执行 `:app:assembleDebug`。在下载 Gradle 8.10.2 阶段失败：
+本地环境无法下载工具后，经用户授权将工程提交到公开仓库 `caozekun-hl/Codex_work` 的独立构建分支，使用 GitHub Actions 构建。主分支未修改。
 
-```text
-Downloading https://services.gradle.org/distributions/gradle-8.10.2-bin.zip
-java.net.SocketException: Operation not permitted
-```
-
-执行环境未安装 Android SDK，也无法通过当前网络权限下载完整构建工具。没有生成 APK，不应将源码 ZIP 当作安装包。工程附带本地构建说明和 GitHub Actions 工作流；远程工作流本次未运行。
+- 源码提交：`f99f2b8fe7f0194fc685ca1bdbb59a3cabd52c33`。
+- 构建记录：https://github.com/caozekun-hl/Codex_work/actions/runs/38993673561
+- 使用 JDK 17、Gradle 8.10.2、Android SDK 35、Build Tools 35.0.0。
+- `:app:assembleDebug :app:verifyCore`：`BUILD SUCCESSFUL`，60 项核心检查通过。
+- `apksigner verify --verbose`：`Verifies`，APK Signature Scheme v2 验证通过。
+- `aapt dump badging`：包名 `cn.juyan.ai`，版本 `1.0.0`，versionCode `1`，minSdk `26`，targetSdk `35`。
+- 安装包：`JuYanAI-1.0.0.apk`，附 SHA-256 校验文件。
+- 产物 ID：`12086286686`；ZIP 大小 51,245 字节。
+- ZIP SHA-256：`2fd2f6c5c2e8f581134b0a961e1e79500916d9b1e6d2fb9a9f87876003238214`。
 
 ## 尚未执行
 
-- Android SDK 下的完整编译、资源链接、打包和签名。
 - 安卓模拟器或真机 UI、键盘、文件选择器和隐私屏幕检查。
 - Android Keystore 密文读写及进程恢复验证。
 - 真实 OpenAI、DeepSeek、GLM 或自定义服务商联调。
