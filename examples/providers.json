@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "providers": [
+    {
+      "name": "OpenAI",
+      "baseUrl": "https://api.openai.com/v1",
+      "apiKey": "",
+      "models": ["gpt-4o-mini", "gpt-4o"]
+    },
+    {
+      "name": "DeepSeek",
+      "baseUrl": "https://api.deepseek.com",
+      "apiKey": "",
+      "models": ["deepseek-chat", "deepseek-reasoner"]
+    },
+    {
+      "name": "智谱 GLM",
+      "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
+      "apiKey": "",
+      "models": ["glm-4-flash"]
+    }
+  ]
+}
